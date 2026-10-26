@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Quicksand', ui-sans-serif, system-ui, sans-serif;
+  --font-script: 'Pacifico', 'Brush Script MT', cursive;
+
+  --color-blush-50: #fff7fa;
+  --color-blush-100: #ffeaf1;
+  --color-blush-200: #ffd6e4;
+  --color-blush-300: #ffb8d0;
+  --color-blush-400: #ff8fb1;
+  --color-rose-kitty: #ff5c8a;
+  --color-kitty-red: #e8264d;
+  --color-kitty-red-dark: #b8173a;
+  --color-ink: #6b2340;
+
+  --shadow-candy: 0 10px 0 0 rgb(184 23 58 / 0.28), 0 18px 30px -8px rgb(232 38 77 / 0.5);
+  --shadow-soft: 0 12px 40px -12px rgb(255 92 138 / 0.45);
+
+  --animate-float: float 6s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+  }
+}
+
+/* Cursores personalizados: lacinho (padrão) e coração (elementos clicáveis) */
+*, *::before, *::after {
+  cursor: url('/cursor-bow.svg') 18 18, auto;
+}
+button, button *, a, a *, [role='button'], [role='button'] * {
+  cursor: url('/cursor-heart.svg') 18 30, pointer;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-blush-100);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+::selection {
+  background: var(--color-blush-300);
+}
+
+/* Estampa de bolinhas estilo Hello Kitty */
+.polka {
+  background-color: var(--color-blush-100);
+  background-image:
+    radial-gradient(circle at 20% 15%, rgb(255 255 255 / 0.9) 0, transparent 38%),
+    radial-gradient(circle at 85% 90%, rgb(255 184 208 / 0.65) 0, transparent 42%),
+    radial-gradient(rgb(255 255 255 / 0.75) 3px, transparent 3.5px),
+    radial-gradient(rgb(255 255 255 / 0.75) 3px, transparent 3.5px);
+  background-size: auto, auto, 46px 46px, 46px 46px;
+  background-position: 0 0, 0 0, 0 0, 23px 23px;
+}
+
+.text-outline {
+  -webkit-text-stroke: 0;
+  text-shadow:
+    0 3px 0 #fff,
+    0 -2px 0 #fff,
+    2px 0 0 #fff,
+    -2px 0 0 #fff,
+    0 8px 18px rgb(232 38 77 / 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
