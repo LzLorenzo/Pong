@@ -50,3 +50,21 @@ export function startHeartRain(durationMs = 9000): () => void {
     confetti.reset()
   }
 }
+
+/** Pequena explosão de corações (ex.: ao abrir uma foto). */
+export function burstHearts(x = 0.5, y = 0.5) {
+  const heart = confetti.shapeFromPath({ path: HEART_PATH })
+  confetti({
+    shapes: [heart],
+    colors: COLORS,
+    particleCount: 26,
+    spread: 80,
+    startVelocity: 28,
+    gravity: 0.7,
+    scalar: 1.2,
+    ticks: 120,
+    origin: { x, y },
+    zIndex: 100,
+    disableForReducedMotion: true,
+  })
+}

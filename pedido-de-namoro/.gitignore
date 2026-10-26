@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# dados locais do admin (npm run dev)
+.dev-data
+.vercel
+.env*.local

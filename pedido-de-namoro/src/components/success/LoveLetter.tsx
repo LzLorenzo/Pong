@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
-import { SUCCESS } from '../../config'
+import { useContent } from '../../content/ContentContext'
 import { Bow } from '../ui/Bow'
 
 export function LoveLetter() {
+  const { success } = useContent()
   return (
     <motion.article
       className="relative w-full rounded-[2rem] border-4 border-white bg-white/85 px-6 pt-12 pb-8 text-center shadow-soft sm:px-12"
@@ -12,9 +13,9 @@ export function LoveLetter() {
       transition={{ type: 'spring', stiffness: 120, damping: 18 }}
     >
       <Bow className="absolute -top-7 left-1/2 w-20 -translate-x-1/2 drop-shadow-md" />
-      <h2 className="mb-4 font-script text-3xl text-kitty-red sm:text-4xl">{SUCCESS.letterTitle}</h2>
+      <h2 className="mb-4 font-script text-3xl text-kitty-red sm:text-4xl">{success.letterTitle}</h2>
       <div className="space-y-4 text-lg leading-relaxed font-medium text-ink sm:text-xl">
-        {SUCCESS.letter.map((p, i) => (
+        {success.letter.map((p, i) => (
           <motion.p
             key={i}
             initial={{ opacity: 0 }}
@@ -26,7 +27,7 @@ export function LoveLetter() {
           </motion.p>
         ))}
       </div>
-      <p className="mt-6 font-script text-xl whitespace-pre-line text-kitty-red-dark sm:text-2xl">{SUCCESS.signature}</p>
+      <p className="mt-6 font-script text-xl whitespace-pre-line text-kitty-red-dark sm:text-2xl">{success.signature}</p>
     </motion.article>
   )
 }

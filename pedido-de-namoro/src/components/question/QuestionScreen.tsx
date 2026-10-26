@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { QUESTION, TAUNTS } from '../../config'
+import { useContent } from '../../content/ContentContext'
 import { createBag } from '../../lib/random'
 import { KittyFace, type KittyMood } from '../ui/KittyFace'
 import { AnimatedTitle } from './AnimatedTitle'
@@ -16,11 +16,12 @@ const GROWTH_PER_ESCAPE = 0.12
 const TAUNT_VISIBLE_MS = 2200
 
 export function QuestionScreen({ onAccept }: QuestionScreenProps) {
+  const { question, taunts } = useContent()
   const [escapes, setEscapes] = useState(0)
   const [taunt, setTaunt] = useState<{ id: number; text: string } | null>(null)
   const yesRef = useRef<HTMLDivElement>(null)
   const avoidRefs = useMemo(() => [yesRef], [])
-  const nextTaunt = useMemo(() => createBag(TAUNTS), [])
+  const nextTaunt = useMemo(() => createBag(taunts.length ? taunts : ['Tem certeza? 🥺']), [taunts])
 
   // Não deixa o "Sim" ocupar mais que ~90% da largura da tela.
   const [maxScale, setMaxScale] = useState(2.4)
@@ -63,7 +64,7 @@ export function QuestionScreen({ onAccept }: QuestionScreenProps) {
         <KittyFace mood={mood} />
       </motion.div>
 
-      <AnimatedTitle text={QUESTION.title} />
+      <AnimatedTitle text={question.title} />
       <TauntBubble taunt={taunt} />
 
       <motion.div
@@ -71,8 +72,8 @@ export function QuestionScreen({ onAccept }: QuestionScreenProps) {
         animate={{ paddingBlock: (yesScale - 1) * 26 }}
         transition={{ type: 'spring', stiffness: 220, damping: 18 }}
       >
-        <YesButton ref={yesRef} label={QUESTION.yes} scale={yesScale} onAccept={onAccept} />
-        <EscapingNoButton label={QUESTION.no} avoidRefs={avoidRefs} onEscape={handleEscape} />
+        <YesButton ref={yesRef} label={question.yes} scale={yesScale} onAccept={onAccept} />
+        <EscapingNoButton label={question.no} avoidRefs={avoidRefs} onEscape={handleEscape} />
       </motion.div>
     </motion.main>
   )

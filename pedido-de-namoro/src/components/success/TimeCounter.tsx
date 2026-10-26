@@ -1,10 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { intervalToDuration } from 'date-fns'
 import { Heart } from 'lucide-react'
-import { RELATIONSHIP_START, SUCCESS } from '../../config'
+import { useContent } from '../../content/ContentContext'
 import { useNow } from '../../hooks/useNow'
-
-const start = new Date(RELATIONSHIP_START)
 
 interface UnitProps {
   value: number
@@ -40,6 +38,8 @@ function Unit({ value, singular, plural, big = false }: UnitProps) {
 }
 
 export function TimeCounter() {
+  const { startDate, success } = useContent()
+  const start = new Date(startDate)
   const now = useNow(1000)
   // Se a data cair no futuro, mostra zeros em vez de quebrar.
   const d = intervalToDuration({ start, end: now < start ? start : now })
@@ -48,7 +48,7 @@ export function TimeCounter() {
     <section className="flex w-full flex-col items-center gap-4" aria-label="Tempo juntos">
       <h2 className="flex items-center gap-2 text-center font-script text-2xl text-kitty-red-dark sm:text-3xl">
         <Heart className="fill-rose-kitty text-rose-kitty" size={22} aria-hidden="true" />
-        {SUCCESS.counterTitle}
+        {success.counterTitle}
         <Heart className="fill-rose-kitty text-rose-kitty" size={22} aria-hidden="true" />
       </h2>
       <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
